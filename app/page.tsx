@@ -1,15 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
-
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-
 import { ChevronLeft, ChevronRight, ShoppingCart, Star } from "lucide-react";
 import { categories, products } from "@/lib/data";
 
@@ -17,41 +13,73 @@ export default function Page() {
   const bestSellingProducts = products.slice(0, 4);
   const exploreProducts = products.slice(4, 12);
 
+  const sidebarCategories = [
+    "Woman’s Fashion",
+    "Men’s Fashion",
+    "Electronics",
+    "Home & Lifestyle",
+    "Medicine",
+    "Sports & Outdoor",
+    "Baby’s & Toys",
+    "Groceries & Pets",
+    "Health & Beauty",
+  ];
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
 
       <main className="flex-1">
-        {/* ================= HERO SECTION ================= */}
-       
-<section className="relative h-[500px] md:h-[600px] overflow-hidden py-12 md:py-16 ">
-  {/* Background Image */}
-  <div className="absolute inset-0">
-    <img
-      src="/images/banner.png"
-      alt="Hero Background"
-      className="w-full h-full object-cover "
-    />
-    {/* Image-er upor text jate sposto hoy tai ekta subtle dark overlay */}
-    <div className="absolute inset-0 bg-black/20" />
-  </div>
+        {/* ================= HERO SECTION (FIGMA STYLE) ================= */}
+        <section className="container mx-auto px-4">
+          <div className="flex flex-col lg:flex-row gap-0">
+            <aside className="hidden lg:block w-64   bg-white shrink-0">
+              <ul className="flex flex-col h-full">
+                {sidebarCategories.map((cat) => (
+                  <li
+                    key={cat}
+                    className="group flex items-center justify-between px-4 py-3 hover:bg-gray-50 cursor-pointer border-b last:border-0 transition-colors"
+                  >
+                    <span className="text-sm font-medium text-gray-700 group-hover:text-[#0070DC]">
+                      {cat}
+                    </span>
+                    <ChevronRight className="h-4 w-4 text-gray-400 group-hover:text-[#0070DC]" />
+                  </li>
+                ))}
+              </ul>
+            </aside>
 
-  <div className="container mx-auto px-4 relative z-10 h-full flex items-center">
-    <div className="max-w-2xl text-white">
-      <h1 className="text-4xl md:text-6xl font-bold mb-6 drop-shadow-md">
-        Up to 15% off <br /> Voucher
-      </h1>
-      <p className="text-lg md:text-xl mb-8 text-gray-100">
-        On all types of products
-      </p>
-      <Button size="lg" className="bg-primary hover:bg-primary/90 text-white px-10 py-6 text-lg rounded-none">
-        Shop Now
-      </Button>
-    </div>
-  </div>
-</section>
+            <div className="flex-1 pb-6">
+              <div className="relative h-[250px] md:h-[500px] overflow-hidden bg-black group ">
+                {/* Background Image */}
+                <img
+                  src="/images/banner.png"
+                  alt="Hero Banner"
+                  className="absolute inset-0 w-full h-full object-cover md:object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                />
 
-        {/* ================= CATEGORIES ================= */}
+                <div className="absolute inset-0 bg-black/30 flex items-center px-6 md:px-16">
+                  <div className="max-w-xl text-[#FF36BC]">
+                    <h1 className="text-2xl md:text-5xl font-bold mb-2 md:mb-4 leading-tight">
+                      Up to 15% off <br /> Voucher
+                    </h1>
+                    <p className="text-xl md:text-3xl mb-4 md:mb-8 text-[#FFFFFF]">
+                      On all types of products
+                    </p>
+                    <Button
+                      size="lg"
+                      className="bg-[#220AF5] text-[#FFEEA4] px-8 md:px-12 py-5 text-lg rounded-full transition-all duration-300 shadow-md "
+                    >
+                      Shop Now
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ================= CATEGORIES (SHOP FROM TOP) ================= */}
         <section className="py-12 md:py-16">
           <div className="container mx-auto px-4">
             <div className="flex items-end justify-between mb-10 border-b pb-0">
@@ -75,20 +103,20 @@ export default function Page() {
               {categories.map((category) => (
                 <Card
                   key={category.id}
-                  className="hover:shadow-lg transition-shadow cursor-pointer border-none overflow-hidden"
+                  className="hover:shadow-lg transition-shadow border-none overflow-hidden"
                 >
                   <CardContent
                     style={{ backgroundColor: category.color }}
                     className="p-8 flex flex-col items-center justify-center gap-3 h-full"
                   >
-                    <div className="relative w-16 h-16 mb-2">
+                    <div className="relative w-16 h-16">
                       <img
                         src={category.icon}
                         alt={category.name}
                         className="w-full h-full object-contain"
                       />
                     </div>
-                    <h3 className="font-semibold text-center text-sm md:text-base">
+                    <h3 className="font-semibold text-center text-sm">
                       {category.name}
                     </h3>
                   </CardContent>
@@ -260,87 +288,102 @@ export default function Page() {
 
         {/* ================= NEW ARRIVAL ================= */}
         {/* ================= NEW ARRIVAL SECTION ================= */}
-{/* ================= NEW ARRIVAL SECTION ================= */}
-<section className="py-12 md:py-16 bg-white">
-  <div className="container mx-auto px-4">
-    {/* Header Section */}
-    <div className="flex items-end justify-between mb-10 border-b pb-0">
-      <div className="relative inline-block">
-        <h2 className="text-2xl md:text-3xl font-bold pb-4">New Arrival</h2>
-        <div className="absolute bottom-0 left-0 w-full h-1.5 bg-primary rounded-full" />
-      </div>
-      <div className="flex gap-2 mb-4">
-        <Button variant="outline" size="icon" className="rounded-full w-8 h-8">
-          <ChevronLeft className="h-4 w-4" />
-        </Button>
-        <Button variant="outline" size="icon" className="rounded-full w-8 h-8">
-          <ChevronRight className="h-4 w-4" />
-        </Button>
-      </div>
-    </div>
+        {/* ================= NEW ARRIVAL SECTION ================= */}
+        <section className="py-12 md:py-16 bg-white">
+          <div className="container mx-auto px-4">
+            {/* Header Section */}
+            <div className="flex items-end justify-between mb-10 border-b pb-0">
+              <div className="relative inline-block">
+                <h2 className="text-2xl md:text-3xl font-bold pb-4">
+                  New Arrival
+                </h2>
+                <div className="absolute bottom-0 left-0 w-full h-1.5 bg-primary rounded-full" />
+              </div>
+              <div className="flex gap-2 mb-4">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="rounded-full w-8 h-8"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="rounded-full w-8 h-8"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
 
-    
-    <div className="flex flex-col gap-6">
-      
-      
-      <div className="grid grid-cols-1 md:grid-cols-10 gap-6">
-        
-      
-        <div className="md:col-span-6 relative group overflow-hidden rounded-lg h-[650px] flex items-end">
-          <img
-            src="/images/n1.png"
-            alt="iPhone 16 Pro Max"
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 "
-          />
-          <div className="relative z-10 p-8 text-white w-full bg-gradient-to-t from-black/80 to-transparent">
-            <h3 className="text-2xl font-bold mb-1">16 PRO MAX</h3>
-            <p className="text-sm text-gray-300 mb-4 max-w-[250px]">
-              Experience the new A18 Pro chip.
-            </p>
-            <Link href="#" className="underline font-bold hover:text-primary transition-colors">
-              Shop Now
-            </Link>
+            <div className="flex flex-col gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-10 gap-6">
+                <div className="md:col-span-6 relative group overflow-hidden rounded-lg h-[650px] flex items-end">
+                  <img
+                    src="/images/n1.png"
+                    alt="iPhone 16 Pro Max"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 "
+                  />
+                  <div className="relative z-10 p-8 text-white w-full bg-gradient-to-t from-black/80 to-transparent">
+                    <h3 className="text-2xl font-bold mb-1">16 PRO MAX</h3>
+                    <p className="text-sm text-gray-300 mb-4 max-w-[250px]">
+                      Experience the new A18 Pro chip.
+                    </p>
+                    <Link
+                      href="#"
+                      className="underline font-bold hover:text-primary transition-colors"
+                    >
+                      Shop Now
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Right: 40% Width Card (iPhone 16) */}
+                <div className="md:col-span-4 relative group overflow-hidden rounded-lg bg-[#0D0D0D] h-[650px] flex items-end">
+                  <img
+                    src="/images/n2.png"
+                    alt="iPhone 16"
+                    className="absolute right-0 top-0 h-full w-auto object-contain"
+                  />
+                  <div className="relative z-10 p-6 text-white w-full">
+                    <h3 className="text-xl font-bold mb-1">iPhone 16</h3>
+                    <p className="text-xs text-gray-400 mb-3 max-w-[150px]">
+                      New camera control and more.
+                    </p>
+                    <Link
+                      href="#"
+                      className="underline font-bold hover:text-primary text-sm"
+                    >
+                      Shop Now
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              {/* SECOND ROW: Full Width Banner (Smart Gadgets) */}
+              <div className="relative group overflow-hidden rounded-lg bg-black h-[580px] flex items-end">
+                <img
+                  src="/images/n3.png"
+                  alt="Smart Gadgets"
+                  className="absolute inset-0 w-full h-full object-cover  transition-transform duration-500 "
+                />
+                <div className="relative z-10 p-8 text-white w-full bg-gradient-to-t from-black/70 to-transparent">
+                  <h3 className="text-2xl font-bold mb-2">Smart Gadgets</h3>
+                  <p className="text-sm text-gray-300 mb-4">
+                    Discover the latest tech arrivals.
+                  </p>
+                  <Link
+                    href="#"
+                    className="underline font-bold hover:text-primary text-sm"
+                  >
+                    Shop Now
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-
-        {/* Right: 40% Width Card (iPhone 16) */}
-        <div className="md:col-span-4 relative group overflow-hidden rounded-lg bg-[#0D0D0D] h-[650px] flex items-end">
-          <img
-            src="/images/n2.png"
-            alt="iPhone 16"
-            className="absolute right-0 top-0 h-full w-auto object-contain"
-          />
-          <div className="relative z-10 p-6 text-white w-full">
-            <h3 className="text-xl font-bold mb-1">iPhone 16</h3>
-            <p className="text-xs text-gray-400 mb-3 max-w-[150px]">
-              New camera control and more.
-            </p>
-            <Link href="#" className="underline font-bold hover:text-primary text-sm">
-              Shop Now
-            </Link>
-          </div>
-        </div>
-      </div>
-
-      {/* SECOND ROW: Full Width Banner (Smart Gadgets) */}
-      <div className="relative group overflow-hidden rounded-lg bg-black h-[580px] flex items-end">
-        <img
-          src="/images/n3.png"
-          alt="Smart Gadgets"
-          className="absolute inset-0 w-full h-full object-cover  transition-transform duration-500 "
-        />
-        <div className="relative z-10 p-8 text-white w-full bg-gradient-to-t from-black/70 to-transparent">
-          <h3 className="text-2xl font-bold mb-2">Smart Gadgets</h3>
-          <p className="text-sm text-gray-300 mb-4">Discover the latest tech arrivals.</p>
-          <Link href="#" className="underline font-bold hover:text-primary text-sm">
-            Shop Now
-          </Link>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
+        </section>
 
         {/* ================= EXPLORE ================= */}
         <section className="py-12 md:py-16">
